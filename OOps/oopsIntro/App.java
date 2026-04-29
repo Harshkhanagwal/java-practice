@@ -12,7 +12,6 @@ public class App {
         Student student2 = new Student(2, 18, "Anjali", 5);
         System.out.println(student2.name);
 
-
         Student student3 = new Student(student2);
         System.out.println(student3.name);
 
