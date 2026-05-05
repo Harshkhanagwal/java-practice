@@ -1,5 +1,5 @@
 
-// HashMap solution
+// HashMap solution -> if u have to return index use this 
 
 import java.util.HashMap;
 
@@ -25,7 +25,7 @@ class Solution {
 
 
 
-// 2 pointers
+// 2 pointers -> best approch but u can return index only
 import java.util.HashMap;
 
 class Solution {
