@@ -1,0 +1,197 @@
+
+Given an integer array nums, return all the triplets [nums[i], nums[j], nums[k]] such that i != j, i != k, and j != k, and nums[i] + nums[j] + nums[k] == 0.
+
+Notice that the solution set must not contain duplicate triplets.
+
+ 
+
+Example :
+
+Input: nums = [-1,0,1,2,-1,-4]
+Output: [[-1,-1,2],[-1,0,1]]
+Explanation: 
+nums[0] + nums[1] + nums[2] = (-1) + 0 + 1 = 0.
+nums[1] + nums[2] + nums[4] = 0 + 1 + (-1) = 0.
+nums[0] + nums[3] + nums[4] = (-1) + 2 + (-1) = 0.
+The distinct triplets are [-1,0,1] and [-1,-1,2].
+Notice that the order of the output and the order of the triplets does not matter.
+
+
+
+
+
+
+
+
+-------------------------------------------  Hash set approch --------------------------------------------------
+
+Step 1 → Create a Set for unique triplets
+    Set<List<Integer>> unique = new HashSet<>();
+    Reason
+
+    Different orders can produce same answer.
+
+    Example:
+
+    [-1,0,1]
+    [0,-1,1]
+
+    Both are same triplet.
+
+    HashSet removes duplicates.
+
+Step 2 → Loop through every element
+    for(int i = 0; i < nums.length; i++)
+    Reason
+
+    We will treat each number as the FIRST number of triplet.
+
+    Example:
+
+    nums[i] = -1
+
+    Now we only need 2 more numbers.
+
+    Step 3 → Convert 3Sum into Two Sum
+    int tar = -nums[i];
+    Reason
+
+    We want:
+
+    nums[i] + x + y = 0
+
+    Move nums[i] to other side:
+
+    x + y = -nums[i]
+
+    Now problem becomes:
+
+    Find two numbers whose sum = target
+
+Step 4 → Create HashSet for Two Sum
+    Set<Integer> s = new HashSet<>();
+    Reason
+
+    We need fast lookup.
+
+    HashSet gives:
+
+    O(1)
+
+    search time.
+
+Step 5 → Start second loop
+    for(int j = i + 1; j < nums.length; j++)
+    Reason
+
+    Now we search for remaining two numbers.
+
+    Step 6 → Find required third number
+    int third = tar - nums[j];
+    Reason
+
+    Suppose:
+
+    target = 1
+    nums[j] = 0
+
+    Then:
+
+    third = 1
+
+    Because:
+
+    0 + 1 = 1
+
+Step 7 → Check if third already exists
+    if(s.contains(third))
+    Reason
+
+    If YES:
+
+    Then we found:
+
+    nums[i] + nums[j] + third = 0
+
+    Triplet complete ✅
+
+    Step 8 → Create triplet
+    List<Integer> triplet =
+        Arrays.asList(nums[i], nums[j], third);
+    Reason
+
+    Store answer.
+
+Step 9 → Sort triplet
+    Collections.sort(triplet);
+    Reason
+
+    To make duplicate triplets identical.
+
+    Example:
+
+    Before sorting:
+
+    [-1,1,0]
+    [-1,0,1]
+
+    After sorting:
+
+    [-1,0,1]
+    [-1,0,1]
+
+    Now HashSet removes duplicates properly.
+
+    Step 10 → Add into HashSet
+    unique.add(triplet);
+    Reason
+
+    Store only unique answers.
+
+    Step 11 → Add current number into Two Sum set
+    s.add(nums[j]);
+    Reason
+
+    Future elements can use this number.
+
+    Step 12 → Convert Set into List
+    return new ArrayList<>(unique);
+    Reason
+
+    Function return type is:
+
+    List<List<Integer>>
+
+    not Set.
+
+
+class Solution {
+    public List<List<Integer>> threeSum(int[] nums) {
+
+            Set<List<Integer>> unqiue = new HashSet<>();
+
+            for(int i = 0; i < nums.length; i++){
+
+                int tar = -nums[i];
+                Set<Integer> s = new HashSet<>();
+
+
+                for(int j = i +1 ; j < nums.length; j++ ){
+                    int third = tar - nums[j];
+
+                    if(s.contains(third)){
+                        List<Integer> triplet = Arrays.asList(nums[i], nums[j], third);
+                        Collections.sort(triplet);
+                        unqiue.add(triplet);
+                    }
+
+                    s.add(nums[j]);
+                }
+            }
+
+
+            List<List<Integer>> ans = new ArrayList(unqiue);
+
+            return ans;
+    }
+}
