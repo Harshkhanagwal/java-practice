@@ -17,12 +17,6 @@ The distinct triplets are [-1,0,1] and [-1,-1,2].
 Notice that the order of the output and the order of the triplets does not matter.
 
 
-
-
-
-
-
-
 -------------------------------------------  Hash set approch --------------------------------------------------
 
 Step 1 → Create a Set for unique triplets
@@ -193,5 +187,213 @@ class Solution {
             List<List<Integer>> ans = new ArrayList(unqiue);
 
             return ans;
+    }
+}
+
+
+
+-------------------------------------------  TWO POINTER approch --------------------------------------------------
+
+STEP 1 → Sort the array
+    Arrays.sort(nums);
+    Reason
+
+    Sorting helps us:
+
+    Use two pointers
+    Increase/decrease sum intelligently
+    Skip duplicates easily
+
+    Example:
+
+    [-1,0,1,2,-1,-4]
+
+    becomes:
+
+    [-4,-1,-1,0,1,2]
+STEP 2 → Fix one number using loop
+    for(int i = 0; i < nums.length; i++)
+    Reason
+
+    We choose one number as the first element of triplet.
+
+    Then remaining problem becomes:
+
+    Find two numbers
+
+STEP 3 → Skip duplicate fixed numbers
+    if(i > 0 && nums[i] == nums[i - 1]) continue;
+    Reason
+
+    Avoid duplicate triplets.
+
+    Example:
+
+    [-1,-1,0,1]
+
+    Both -1 can generate same answers.
+
+    So skip repeated starting elements.
+
+STEP 4 → Create two pointers
+    int j = i + 1;
+    int k = nums.length - 1;
+    Reason
+    j starts after i
+    k starts from end
+
+    We now search for remaining two numbers.
+
+STEP 5 → Run while loop
+    while(j < k)
+    Reason
+
+    Need two different positions.
+
+    Loop continues until pointers meet.
+
+STEP 6 → Calculate sum
+    int sum = nums[i] + nums[j] + nums[k];
+    Reason
+
+    Check whether current triplet:
+
+    too small
+    too large
+    exactly zero
+STEP 7 → If sum is too small
+    if(sum < 0) {
+        j++;
+    }
+    Reason
+
+    Array is sorted.
+
+    To increase sum:
+
+    Move left pointer RIGHT.
+
+    Example:
+
+    -4 + -1 + 2 = -3
+
+    Need bigger value.
+
+STEP 8 → If sum is too large
+    else if(sum > 0) {
+        k--;
+    }
+    Reason
+
+    Need smaller sum.
+
+    Move right pointer LEFT.
+
+    Example:
+
+    -1 + 1 + 2 = 2
+
+    Too large.
+
+STEP 9 → If sum becomes zero
+
+    Reason
+
+    We found valid triplet.
+
+STEP 10 → Store triplet
+    ans.add(Arrays.asList(nums[i], nums[j], nums[k]));
+    Reason
+
+    Save answer.
+
+    STEP 11 → Move both pointers
+    j++;
+    k--;
+    Reason
+
+    Current pair already used.
+
+    Search for next possible pair.
+
+STEP 12 → Skip duplicate left pointer values
+    while(j < k && nums[j] == nums[j - 1]) {
+        j++;
+    }
+    Reason
+
+    Avoid repeated triplets.
+
+STEP 13 → Skip duplicate right pointer values
+    while(j < k && nums[k] == nums[k + 1]) {
+        k--;
+    }
+    Reason
+
+    Same duplicate prevention.
+
+    Final Mental Flow
+    Sort array
+    ↓
+    Fix one number
+    ↓
+    Use two pointers
+    ↓
+    If sum small → increase it
+    If sum large → decrease it
+    If sum = 0 → store answer
+    ↓
+    Skip duplicates
+
+
+
+
+
+
+class Solution {
+    public List<List<Integer>> threeSum(int[] nums) {
+
+        List<List<Integer>> ans = new ArrayList<>();
+
+        int n = nums.length;
+
+        Arrays.sort(nums);
+
+        for(int i = 0; i < n; i++) {
+
+            if(i > 0 && nums[i] == nums[i - 1]) continue;
+
+            int j = i + 1;
+            int k = n - 1;
+
+            while(j < k) {
+
+                int sum = nums[i] + nums[j] + nums[k];
+
+                if(sum > 0) {
+                    k--;
+                }
+                else if(sum < 0) {
+                    j++;
+                }
+                else {
+
+                    ans.add(Arrays.asList(nums[i], nums[j], nums[k]));
+
+                    j++;
+                    k--;
+
+                    while(j < k && nums[j] == nums[j - 1]) {
+                        j++;
+                    }
+
+                    while(j < k && nums[k] == nums[k + 1]) {
+                        k--;
+                    }
+                }
+            }
+        }
+
+        return ans;
     }
 }
