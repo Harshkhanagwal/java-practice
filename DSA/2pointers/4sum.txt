@@ -1,0 +1,203 @@
+
+4sum leetcode 18
+
+Given an array nums of n integers, return an array of all the unique quadruplets [nums[a], nums[b], nums[c], nums[d]] such that:
+
+0 <= a, b, c, d < n
+a, b, c, and d are distinct.
+nums[a] + nums[b] + nums[c] + nums[d] == target
+You may return the answer in any order.
+
+ 
+
+Example 1:
+
+Input: nums = [1,0,-1,0,-2,2], target = 0
+Output: [[-2,-1,1,2],[-2,0,0,2],[-1,0,0,1]]
+Example 2:
+
+Input: nums = [2,2,2,2,2], target = 8
+Output: [[2,2,2,2]]
+
+
+Step 1 → Sort array
+    Arrays.sort(nums);
+    Why?
+    Because sorting helps:
+
+
+    use two pointers
+
+
+    skip duplicates easily
+
+
+    move left/right intelligently
+
+
+
+    Example:
+    nums = [1,0,-1,0,-2,2]
+    After sorting:
+    [-2,-1,0,0,1,2]
+
+Step 2 → Fix first number (i)
+    for (int i = 0; i < nums.length - 3; i++)
+    We choose first element.
+    Example:
+    i = 0 -> -2
+
+Step 3 → Skip duplicate i
+    if (i > 0 && nums[i] == nums[i - 1]) continue;
+    Why?
+    Without this:
+    -2 ...-2 ...
+    would generate same quadruplets again.
+
+Step 4 → Fix second number (j)
+    for (int j = i + 1; j < nums.length - 2;)
+    Now second number fixed.
+    Example:
+    i = -2j = -1
+    Now we need 2 more numbers.
+
+Step 5 → Two pointers
+    int p = j + 1;int q = nums.length - 1;
+    Pointers:
+    p -> left sideq -> right side
+
+    Example:
+    [-2,-1,0,0,1,2]
+    Current:
+    i = -2j = -1p = 0q = 2
+
+Step 6 → Calculate sum
+    long sum = (long) nums[i] + nums[j] + nums[p] + nums[q];
+    Using long prevents overflow.
+
+Step 7 → Compare with target
+
+    Case 1 → Sum too small
+    if(sum < target)
+    Need bigger value.
+    Since array sorted:
+    p++;
+    Move left pointer rightward.
+
+Case 2 → Sum too big
+    else if(sum > target)
+    Need smaller value.
+    So:
+    q--;
+    Move right pointer leftward.
+
+Case 3 → Found answer
+    else
+    We found quadruplet.
+    Example:
+    [-2,-1,1,2]
+    Store it:
+    unique.add(lst);
+
+Step 8 → Move both pointers
+    p++;q--;
+    Why both?
+    Because current pair already used.
+    Need new pair.
+
+Step 9 → Skip duplicates
+    while (p < q && nums[p] == nums[p-1]) p++;
+    Avoid repeated left values.
+
+    But HERE you made a mistake:
+    while (p < q && nums[1] == nums[q + 1 ]) q++;
+    Problems:
+
+    Mistake 1
+    nums[1]
+    Should be:
+    nums[q]
+
+    Mistake 2
+    q++
+    Wrong direction.
+    q is right pointer.
+    Should move LEFT:
+    q--
+
+    Correct line:
+    while (p < q && nums[q] == nums[q + 1]) q--;
+
+Step 10 → Skip duplicate j
+    After while loop:
+    j++;while(j < nums.length && nums[j] == nums[j-1]) j++;
+    Avoid repeated second elements.
+
+    Time Complexity
+    Loops:
+    i -> nj -> np/q -> n
+    Total:
+    O(n³)
+
+One more improvement
+You no longer need:
+Set<ArrayList<Integer>>
+because duplicate skipping already handles uniqueness.
+You can directly use:
+List<List<Integer>> ans = new ArrayList<>();
+
+Your only actual bug now is:
+while (p < q && nums[1] == nums[q + 1 ]) q++;
+Correct:
+while (p < q && nums[q] == nums[q + 1 ]) q--;
+
+
+
+
+
+class Solution {
+    public List<List<Integer>> fourSum(int[] nums, int target) {
+        
+        Arrays.sort(nums);
+
+        Set<ArrayList<Integer>> unique = new HashSet<>();
+
+        for (int i = 0; i < nums.length - 3; i++) {
+            
+            if (i > 0 && nums[i] == nums[i - 1]) continue;
+
+            for (int j  = i+1; j < nums.length -2 ;){
+
+                int p = j + 1;
+                int q = nums.length - 1;
+
+                while (p < q) {
+                    long sum = (long) nums[i] + nums[j] + nums[p] + nums[q];
+                 
+                    if(sum < target) {
+                        p++;
+                    }else if(sum > target) {
+                        q--;
+                    }else{
+                         ArrayList<Integer> lst = new ArrayList<>(Arrays.asList(nums[i], nums[j] , nums[p] , nums[q] ));
+
+                        unique.add(lst);
+                        p++;
+                        q--;
+
+                        while (p < q && nums[p] == nums[p-1]) p++;
+                        while (p < q && nums[1] == nums[q + 1 ]) q++;
+                        
+                    }
+                }
+                
+                j++;
+                while(j < nums.length && nums[j] == nums[j-1]) j++;
+            }
+        }
+    
+        List<List<Integer>> ans = new ArrayList<>(unique);
+
+        return ans;
+    }
+}
