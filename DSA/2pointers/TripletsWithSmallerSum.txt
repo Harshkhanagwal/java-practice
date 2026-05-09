@@ -1,0 +1,32 @@
+Given an array arr[] of distinct integers and a value sum, find the count of triplets (i, j, k), having (i<j<k) with the sum of (arr[i] + arr[j] + arr[k]) smaller than the given value sum.
+
+Examples :
+
+Input: sum = 2, arr[] = [-2, 0, 1, 3]
+Output:  2
+Explanation: Triplets with sum less than 2 are (-2, 0, 1) and (-2, 0, 3). 
+
+
+class Solution {
+    int countTriplets(int sum, int arr[]) {
+        // code here
+        int ans = 0;
+        Arrays.sort(arr); 
+        
+        for(int i = 0; i < arr.length - 2; i++) {
+            
+            int j = i +1 ;
+            int k = arr.length - 1;
+            while (j < k) {
+                if(arr[i] + arr[j] + arr[k] >= sum ) {
+                    k--;
+                }else{
+                    ans = ans + (k - j);
+                    j++;
+                }
+            }
+        }
+        
+        return ans;
+     }
+}
