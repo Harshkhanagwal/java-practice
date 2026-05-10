@@ -1,0 +1,17 @@
+#sliding window -> it uses 2 pointers
+
+both pointers will move in same direction
+
+when we only increase right / high pointer = window expands 
+when we only increase left / low pointer = window shrinks
+
+
+//condtions
+
+- array / string ✅
+- linkedlist ❌ rare chance
+ 
+- when question contains worlds like  - substring / subarray (continuos) not for subsqence (non continuos)
+
+
+
