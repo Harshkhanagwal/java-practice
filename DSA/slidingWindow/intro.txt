@@ -7,11 +7,40 @@ when we only increase left / low pointer = window shrinks
 
 
 //condtions
+    1. array / string ✅
+        - linkedlist ❌ rare chance
+    
+    2. when question contains worlds like  - substring / subarray (continuos) not for subsqence (non continuos)
 
-- array / string ✅
-- linkedlist ❌ rare chance
- 
-- when question contains worlds like  - substring / subarray (continuos) not for subsqence (non continuos)
+    3. what we are finding
+        -max / min
+        -sum
+        -count
+        -avg
+        -most k
+        -at least k
+        -exactly k
+        -longest 
+        -shortest
+
+
+//types
+-> fix (can't expand or shrink)  / dynamic (can expand and shrink)
+
+// major steps for question
+    1. Identify pattern
+    2. find window type ( fx / dynamic)
+    3. find data / info for first window
+    4. find data/info for new window > repeat till end condtions
 
 
 
+//sudo keywords
+    - low / high (window)
+        -> low : starting window
+        -> high : k -1 (end point of window) / (k = given size)
+         
+
+
+
+    
