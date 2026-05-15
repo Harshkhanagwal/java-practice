@@ -162,11 +162,9 @@ class Solution {
                 }
                 
                if(map.size() == k ) {
-                
-                
                     int len = h - l + 1;
                     res = Math.max(len , res);
-}
+                }
                    h++;
            
           }
