@@ -1,0 +1,240 @@
+Longest Repeating Character Replacement
+
+You are given a string s and an integer k. You can choose any character of the string and change it to any other uppercase English character. You can perform this operation at most k times.
+
+Return the length of the longest substring containing the same letter you can get after performing the above operations.
+
+ 
+
+Example 1:
+
+Input: s = "ABAB", k = 2
+Output: 4
+Explanation: Replace the two 'A's with two 'B's or vice versa.
+Example 2:
+
+Input: s = "AABABBA", k = 1
+Output: 4
+Explanation: Replace the one 'A' in the middle with 'B' and form "AABBBBA".
+The substring "BBBB" has the longest repeating letters, which is 4.
+There may exists other ways to achieve this answer too.
+ 
+
+
+### Core Idea
+
+We use a **sliding window** to find the longest substring where we can replace at most `k` characters to make all characters same.
+
+---
+
+# Pointers of What We Did
+
+## 1. Frequency Map
+
+```java id="7h4fx6"
+HashMap<Character, Integer> map
+```
+
+Stores frequency of characters inside current window.
+
+Example:
+
+```text id="f2k95v"
+AABAB
+```
+
+Map:
+
+```text id="64m7x5"
+A = 3
+B = 2
+```
+
+---
+
+## 2. Two Pointers
+
+```java id="4s4kr4"
+l -> left
+h -> right
+```
+
+These create the sliding window.
+
+Window:
+
+```text id="yzl2up"
+s[l ... h]
+```
+
+---
+
+## 3. Expand Window
+
+```java id="1n70vd"
+map.merge(s.charAt(h), 1, Integer::sum);
+```
+
+Add current character frequency while moving `h`.
+
+---
+
+## 4. Track Most Frequent Character
+
+```java id="pd0xgx"
+maxFreq = Math.max(maxFreq, map.get(s.charAt(h)));
+```
+
+We store highest frequency character in current window.
+
+Example:
+
+```text id="m0zv7k"
+AABAB
+```
+
+maxFreq:
+
+```text id="jlwmk4"
+3
+```
+
+because `A` appears 3 times.
+
+---
+
+## 5. Find Replacements Needed
+
+Main formula:
+
+```text id="j2ynrb"
+window size - maxFreq
+```
+
+Why?
+
+Because:
+
+* keep the most frequent character
+* replace all remaining characters
+
+Example:
+
+```text id="e51uy1"
+AABAB
+```
+
+* window size = 5
+* maxFreq = 3
+
+Needed replacements:
+
+```text id="xdrqcf"
+5 - 3 = 2
+```
+
+---
+
+## 6. Invalid Window → Shrink
+
+```java id="8j9mlm"
+if ((h - l + 1) - maxFreq > k)
+```
+
+If replacements exceed `k`,
+move left pointer.
+
+```java id="zk2ewf"
+l++;
+```
+
+Also reduce frequency from map.
+
+---
+
+## 7. Store Maximum Length
+
+```java id="dzp3q6"
+res = Math.max(res, h - l + 1);
+```
+
+Track largest valid window.
+
+---
+
+# Final Intuition
+
+We try to maintain:
+
+```text id="j7r2gx"
+window size - most frequent char <= k
+```
+
+Meaning:
+
+> We can convert whole window into one character using at most `k` replacements.
+
+---
+
+# Time Complexity
+
+```text id="i5p0wr"
+O(n)
+```
+
+Each character enters and leaves window once.
+
+---
+
+# Space Complexity
+
+```text id="6h30vr"
+O(26) = O(1)
+```
+
+Only uppercase English letters stored.
+
+
+
+
+
+--------------------code----------------------------
+
+class Solution {
+    public int characterReplacement(String s, int k) {
+        HashMap<Character, Integer> map = new HashMap<>();
+
+
+        int l = 0;
+        int h = 0; 
+        
+        int res = -1;
+        int maxFreq = 0;
+
+        while(h < s.length()) {
+
+            map.merge(s.charAt(h), 1, Integer::sum);
+
+            maxFreq = Math.max(maxFreq, map.get(s.charAt(h)));
+
+
+
+            if(( h - l + 1) - maxFreq > k){
+                map.merge(s.charAt(l), -1, Integer::sum);
+                if(map.get(s.charAt(l)) == 0) map.remove(s.charAt(l));
+                l++;
+            }
+
+            if(( h - l + 1) - maxFreq  <= k) {
+                int len = h - l + 1;
+                res = Math.max(len , res);
+            }
+
+            h++;
+        }
+
+        if(res == -1 ) res = 0;
+
+        return res;
+    }
+}
