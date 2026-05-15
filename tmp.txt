@@ -1,1 +1,6 @@
-                
+                Longest substring with K unique chars
+Fruit into baskets
+Longest repeating replacement
+Minimum window substring
+Longest non-repeating substring
+Sliding window frequency problems
