@@ -1,4 +1,7 @@
 
+import java.util.HashMap;
+
+
 /*
 Question: Longest Substring Without Repeating Characters
 
@@ -34,8 +37,31 @@ public class LongestSubstringWithoutRepeatingCharacters {
     public static int lengthOfLongestSubstring(String s) {
 
         // Your code here
+        int res =0;
+        HashMap<Character, Integer> map = new HashMap<>();
+        
+        int l =0;
+        int h = 0;
 
-        return 0;
+        while(h < s.length()){
+            map.merge(s.charAt(h), 1 ,Integer::sum);
+
+            while(map.size() < (h - l +1)){
+            map.merge(s.charAt(l), -1 ,Integer::sum);
+                if(map.get(s.charAt(l))== 0) map.remove(s.charAt(l));
+                l++;
+            }   
+
+            if(map.size() == (h - l +1)) {
+                int len = h - l +1;
+                res = Math.max(res, len);
+            }
+            
+            h++;
+        }
+
+        
+        return res;
     }
 
     public static void main(String[] args) {
@@ -47,3 +73,16 @@ public class LongestSubstringWithoutRepeatingCharacters {
         System.out.println(lengthOfLongestSubstring("dvdf"));     // Expected: 3
     }
 }
+
+
+
+/*
+
+a b c b c b b
+
+h = 0
+l = 0;
+
+
+
+*/
