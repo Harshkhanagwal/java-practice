@@ -14,6 +14,20 @@ public class LL {
         }
     }
 
+    public void printlist() {
+
+        if (head == null) {
+            System.err.println("List is empty");
+            return;
+        }
+        Node curr = head;
+
+        while (curr != null) {
+            System.err.println(curr.data);
+            curr = curr.next;
+        }
+    }
+
     public void addFirst(String data) {
         Node newNode = new Node(data);
 
@@ -26,20 +40,6 @@ public class LL {
         head = newNode;
     }
 
-    public void printlist() {
-       
-        if(head == null){
-            System.err.println("List is empty"); 
-            return;
-        }
-        Node curr = head;
-
-        while(curr != null) {
-            System.err.println(curr.data);
-            curr = curr.next;
-        }
-    }
-
     public void addLast(String data) {
         Node newNode = new Node(data);
 
@@ -50,13 +50,36 @@ public class LL {
 
         Node curr = head;
 
-        while (curr.next != null){
+        while (curr.next != null) {
             curr = curr.next;
 
         }
 
         curr.next = newNode;
 
+    }
+
+    public void addAtIndex(String data, int indx) {
+        Node newNode = new Node(data);
+
+        if (indx == 1) {
+            newNode.next = head;
+            head = newNode;
+        }
+
+        Node tmp = head;
+
+        for (int i = 0; i < indx - 1; i++) {
+            tmp = tmp.next;
+        }
+
+        if (tmp == null) {
+            System.err.println("Invalid index");
+            return;
+        }
+
+        newNode.next = tmp.next;
+        tmp = newNode;
     }
 
     public static void main(String[] args) {
@@ -69,7 +92,6 @@ public class LL {
         list.addFirst("hello6");
 
         list.addLast("last elm");
-
 
         list.printlist();
     }
