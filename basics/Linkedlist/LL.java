@@ -10,6 +10,7 @@ public class LL {
 
         Node(String data) {
             this.data = data;
+            
             this.next = null;
         }
     }
@@ -59,7 +60,10 @@ public class LL {
 
         curr.next = newNode;
 
+        
     }
+
+
 
     public void addAtIndex(String data, int indx) {
 
@@ -85,8 +89,7 @@ public class LL {
             return;
         }
 
-        newNode.next = tmp.next;
-        tmp.next = newNode;
+
     }
 
 
@@ -113,12 +116,31 @@ public class LL {
         Node crnt = head;
 
         while(crnt != null) {
-            if(crnt != null && crnt.next== null) {
-                crnt = null;
+            if(crnt.next != null && crnt.next.next == null) {
+                crnt.next = null;
+                break;
             }
             crnt = crnt.next;
+            
         }
     }
+
+    public void deleteAtIndex(int index){
+        if(head == null){
+            System.out.println("List is empty");
+            return;
+        }
+
+        Node tmp = head;
+
+        for (int i = 1; i < index - 1 && tmp != null; i++) {
+            tmp = tmp.next;
+        }
+
+        tmp.next = tmp.next.next;
+
+    }
+
     public static void main(String[] args) {
         LL list = new LL();
         list.addLast("1");
@@ -127,13 +149,32 @@ public class LL {
         list.addLast("4");
         list.addLast("5");
         list.addLast("6");
-
         list.addLast("7");
 
         list.printlist();
 
-        list.deleteFirst();
+        // list.deleteFirst();
 
+        list.deleteAtIndex(5);
         list.printlist();
+
     }
+}
+
+
+
+
+Hello World this is Harsh Khnagawal <{Java developer at tcs Hello <>
+    Java
+    elixer perfume le leta hu ;sd;;
+
+    mola mere mola Java script engine things hello world 
+
+
+    java scrip develo[er Hu mein to < 
+
+        code krna mera kaam hai or mein vahi krta hu{
+            agr kisi ko shak hai to merse aake baat kr le dur kar dunga 
+        }
+    ]
 }
