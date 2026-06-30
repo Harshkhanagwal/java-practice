@@ -162,19 +162,3 @@ public class LL {
 }
 
 
-
-
-Hello World this is Harsh Khnagawal <{Java developer at tcs Hello <>
-    Java
-    elixer perfume le leta hu ;sd;;
-
-    mola mere mola Java script engine things hello world 
-
-
-    java scrip develo[er Hu mein to < 
-
-        code krna mera kaam hai or mein vahi krta hu{
-            agr kisi ko shak hai to merse aake baat kr le dur kar dunga 
-        }
-    ]
-}
