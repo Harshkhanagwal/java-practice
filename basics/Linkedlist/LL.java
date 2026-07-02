@@ -141,6 +141,33 @@ public class LL {
 
     }
 
+
+  public void deleteLast() {
+    // TODO
+}
+
+public void deleteAtIndex(int index) {
+    // TODO
+}
+
+public boolean search(String data) {
+    // TODO
+    return false;
+}
+
+public int length() {
+    // TODO
+    return 0;
+}
+
+public void reverseIterative() {
+    // TODO
+}
+
+public void reverseRecursive() {
+    // TODO
+}
+
     public static void main(String[] args) {
         LL list = new LL();
         list.addLast("1");
