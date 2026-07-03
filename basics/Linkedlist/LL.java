@@ -10,7 +10,7 @@ public class LL {
 
         Node(String data) {
             this.data = data;
-            
+
             this.next = null;
         }
     }
@@ -60,10 +60,7 @@ public class LL {
 
         curr.next = newNode;
 
-        
     }
-
-
 
     public void addAtIndex(String data, int indx) {
 
@@ -89,44 +86,41 @@ public class LL {
             return;
         }
 
-
     }
 
-
     public void deleteFirst() {
-        if(head == null) {
+        if (head == null) {
             System.out.println("List is empty");
-        }else{
+        } else {
             head = head.next;
         }
     }
 
-
     public void deleteLast() {
-        if(head == null ) {
+        if (head == null) {
             System.out.println("List is empty");
             return;
         }
 
-        if(head.next == null){
+        if (head.next == null) {
             head = null;
             return;
         }
 
         Node crnt = head;
 
-        while(crnt != null) {
-            if(crnt.next != null && crnt.next.next == null) {
+        while (crnt != null) {
+            if (crnt.next != null && crnt.next.next == null) {
                 crnt.next = null;
                 break;
             }
             crnt = crnt.next;
-            
+
         }
     }
 
-    public void deleteAtIndex(int index){
-        if(head == null){
+    public void deleteAtIndex(int index) {
+        if (head == null) {
             System.out.println("List is empty");
             return;
         }
@@ -141,42 +135,50 @@ public class LL {
 
     }
 
-public int length() {
-    // TODO
-    Node tmp = head;
-    int l = 0;
-    while (tmp != null) { 
-        l++;
-        tmp = tmp.next;
-    }
-    return l;
-}
+    public int length() {
 
-
-
-public boolean search(String data) {
-    // TODO
-
-    Node tmp = head;
-
-    while(tmp != null){
-        if(tmp.data.equals(data)) {
-            return true;
+        Node tmp = head;
+        int l = 0;
+        while (tmp != null) {
+            l++;
+            tmp = tmp.next;
         }
-        tmp = tmp.next;
+        return l;
     }
-    
-    return false;
-}
 
+    public boolean search(String data) {
 
-public void reverseIterative() {
-    // TODO
-}
+        Node tmp = head;
 
-public void reverseRecursive() {
-    // TODO
-}
+        while (tmp != null) {
+            if (tmp.data.equals(data)) {
+                return true;
+            }
+            tmp = tmp.next;
+        }
+
+        return false;
+    }
+
+    public void reverseList() {
+
+        if (head == null || head.next == null) {
+            System.out.println("list is empty");
+            return;
+        }
+
+        Node curr = head;
+        Node prev = null;
+        Node next = null;
+
+        while (curr != null) {
+            next = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = next;
+        }
+        head = prev;
+    }
 
     public static void main(String[] args) {
         LL list = new LL();
@@ -187,15 +189,13 @@ public void reverseRecursive() {
         list.addLast("5");
         list.addLast("6");
         list.addLast("7");
+        list.addLast("8");
 
         list.printlist();
 
-        // list.deleteFirst();
+        list.reverseList();
 
-        list.deleteAtIndex(5);
         list.printlist();
 
     }
 }
-
-
