@@ -141,23 +141,15 @@ public class LL {
 
     }
 
-
-  public void deleteLast() {
-    // TODO
-}
-
-public void deleteAtIndex(int index) {
-    // TODO
-}
-
-public boolean search(String data) {
-    // TODO
-    return false;
-}
-
 public int length() {
     // TODO
-    return 0;
+    Node tmp = head;
+    int l = 0;
+    while (tmp != null) { 
+        l++;
+        tmp = tmp.next;
+    }
+    return l;
 }
 
 public void reverseIterative() {
