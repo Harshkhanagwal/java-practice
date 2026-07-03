@@ -152,6 +152,24 @@ public int length() {
     return l;
 }
 
+
+
+public boolean search(String data) {
+    // TODO
+
+    Node tmp = head;
+
+    while(tmp != null){
+        if(tmp.data.equals(data)) {
+            return true;
+        }
+        tmp = tmp.next;
+    }
+    
+    return false;
+}
+
+
 public void reverseIterative() {
     // TODO
 }
