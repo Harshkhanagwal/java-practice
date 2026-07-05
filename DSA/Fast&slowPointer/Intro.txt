@@ -1,0 +1,81 @@
+How to Identify :
+    - question is about (loop, cycle, pattern repeatation)
+
+
+Introduction
+
+The Slow & Fast Pointer technique is a linked list traversal method where two pointers move through the list at different speeds.
+
+Slow Pointer moves one node at a time.
+Fast Pointer moves two nodes at a time.
+
+Because the fast pointer moves twice as quickly, it reaches the end of the list sooner. The difference in their speeds helps solve several linked list problems efficiently without using extra memory.
+
+
+Common Applications
+    - Find the middle node of a linked list.
+    - Detect whether a linked list contains a cycle.
+    - Find the starting node of a cycle.
+    - Check whether a linked list is a palindrome.
+    - Remove the Nth node from the end.
+    - Split a linked list into two halves.
+    - Reorder a linked list.
+ > Basic Idea
+    - Slow Pointer  → moves 1 step
+    - Fast Pointer  → moves 2 steps
+
+
+
+How to find the starting point of cycle :
+    # Finding the Starting Node of a Cycle (Floyd's Algorithm)
+
+### Variables
+
+* **L** = Distance from `head` to the start of the cycle.
+* **X** = Distance from the cycle's start to the meeting point.
+* **C** = Length of the cycle.
+
+### Distance Covered
+
+* **Slow Pointer** = `L + X`
+* **Fast Pointer** = `L + X + nC`
+
+  * `n` = Number of extra loops completed by the fast pointer.
+
+### Mathematical Proof
+
+Since the fast pointer moves twice as fast as the slow pointer:
+
+```text
+L + X + nC = 2(L + X)
+```
+
+Simplifying:
+
+```text
+nC = L + X
+```
+
+or
+
+```text
+L = nC - X
+```
+
+### Conclusion
+
+* The pointer at the **head** is `L` steps away from the cycle's start.
+* The pointer at the **meeting point** is also `L` steps away from the cycle's start (inside the cycle).
+
+Therefore:
+
+1. Move one pointer to `head`.
+2. Keep the other at the meeting point.
+3. Move both one step at a time.
+
+They will meet at the **starting node of the cycle**.
+
+**Time Complexity:** `O(n)`
+**Space Complexity:** `O(1)`
+
+
