@@ -79,3 +79,34 @@ They will meet at the **starting node of the cycle**.
 **Space Complexity:** `O(1)`
 
 
+
+
+key factors
+
+cycle find -> 100%
+middle off -> 100%
+cycle starting point -> 100%
+
+
+
+code pattern breakdown 
+
+1. take 2 Variables (slow and fast) with start (head, index 0, n)
+
+2.  with in loop -> increase slow by 1 and increase fast by 2
+
+3. initialize condition (if fast == slow)
+        true = cycle 
+    
+    3.1 if need to find starting
+
+        - make slow again starting point keep fast at same
+        - initialize loop with condition fast == slow 
+        - now move slow and fast both 1 step in each loop 
+
+        the time loop breaks because of condition fast == slow  u'll get the starting point of the cycle 
+
+        return slow ;
+
+     
+
