@@ -1,0 +1,6 @@
+✅ Merge Two Sorted Lists 
+✅ Remove Nth Node From End (one-pass version) 
+✅ Palindrome Linked List (finish it yourself)
+✅ Reorder List 
+✅ Intersection of Two Linked Lists 
+✅ Reverse Nodes in K Groups (hard)
