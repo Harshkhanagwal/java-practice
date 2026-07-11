@@ -4,3 +4,52 @@
 ✅ Reorder List 
 ✅ Intersection of Two Linked Lists 
 ✅ Reverse Nodes in K Groups (hard)
+
+
+✅ Merge Two Sorted Lists
+
+https://leetcode.com/problems/merge-two-sorted-lists/
+
+You are given the heads of two sorted linked lists list1 and list2.
+
+Merge the two lists into one sorted list. The list should be made by splicing together the nodes of the first two lists.
+
+Return the head of the merged linked list.
+
+
+
+
+    class Solution {
+        public ListNode mergeTwoLists(ListNode list1, ListNode list2) {
+            ListNode sorted = new ListNode();
+            ListNode tmp = sorted;
+
+            ListNode first = list1;
+            ListNode scnd = list2;
+
+            while(first != null && scnd != null){
+
+                if (first.val < scnd.val ) {
+                    tmp.next = first;
+                    first = first.next;
+
+                } else {
+                    tmp.next = scnd;
+                    scnd = scnd.next;
+                }
+
+                tmp = tmp.next;
+            }
+
+            if(first == null) {
+                tmp.next = scnd;
+            }
+
+            if(scnd == null) {
+                tmp.next = first;
+            }
+
+            return sorted.next;
+        }
+    }
+
