@@ -6,6 +6,9 @@
 ✅ Reverse Nodes in K Groups (hard)
 
 
+---------------------------------------------------------------------------------------------------------------------------
+
+
 ✅ Merge Two Sorted Lists
 
 https://leetcode.com/problems/merge-two-sorted-lists/
@@ -53,6 +56,8 @@ Return the head of the merged linked list.
         }
     }
 
+---------------------------------------------------------------------------------------------------------------------------
+
 
 ✅ Remove Nth Node From End (one-pass version) 
 
@@ -79,5 +84,86 @@ class Solution {
         slow.next = slow.next.next;
 
         return dummy.next;
+    }
+}
+
+---------------------------------------------------------------------------------------------------------------------------
+
+✅ Reorder List 
+
+https://leetcode.com/problems/reorder-list/submissions/2064974440/
+
+143. Reorder List
+
+You are given the head of a singly linked-list. The list can be represented as:
+
+L0 → L1 → … → Ln - 1 → Ln
+Reorder the list to be on the following form:
+
+L0 → Ln → L1 → Ln - 1 → L2 → Ln - 2 → …
+You may not modify the values in the list's nodes. Only nodes themselves may be changed.
+
+
+Input: head = [1,2,3,4]
+Output: [1,4,2,3]
+
+Input: head = [1,2,3,4,5]
+Output: [1,5,2,4,3]
+
+
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
+class Solution {
+    public void reorderList(ListNode head) {
+        ListNode slow = head;
+        ListNode fast = head;
+    
+        while (fast.next != null && fast.next.next != null){
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+
+        ListNode prev = null;
+        ListNode curr = slow.next;
+        slow.next = null;
+        ListNode next = null;
+
+        while(curr != null){
+            next = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = next;
+        }
+        
+        ListNode first = head;
+        ListNode sec = prev;
+
+        ListNode firstNext = null;
+        ListNode secNext = null;
+
+        while(sec != null){
+
+            firstNext = first.next;
+            secNext = sec.next;
+
+            first.next = sec;
+            sec.next = firstNext;
+
+            first = firstNext;
+            sec = secNext;
+        }
+
+
+
+    
+
     }
 }
