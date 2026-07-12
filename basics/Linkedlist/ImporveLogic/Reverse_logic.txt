@@ -1,0 +1,97 @@
+REVERSE LINKED LIST (ITERATIVE)
+
+Concept:
+Reverse a linked list by changing the direction of each node's next pointer.
+
+Pointers Used:
+
+* prev  -> Previous node (initially null)
+* curr  -> Current node (starts from head)
+* next  -> Stores the next node before changing the link
+
+Algorithm:
+
+1. Save the next node.
+2. Reverse the current node's link.
+3. Move prev forward.
+4. Move curr forward.
+5. Repeat until curr becomes null.
+6. Update head = prev.
+
+Pseudo Steps:
+
+next = curr.next
+curr.next = prev
+prev = curr
+curr = next
+
+Repeat while:
+
+curr != null
+
+After loop:
+
+head = prev
+
+---
+
+Dry Run
+
+Original:
+1 -> 2 -> 3 -> null
+
+Iteration 1:
+next = 2
+1 -> null
+prev = 1
+curr = 2
+
+Iteration 2:
+next = 3
+2 -> 1 -> null
+prev = 2
+curr = 3
+
+Iteration 3:
+next = null
+3 -> 2 -> 1 -> null
+prev = 3
+curr = null
+
+head = prev
+
+Final:
+3 -> 2 -> 1 -> null
+
+---
+
+Time Complexity : O(n)
+Space Complexity: O(1)
+
+---
+
+Memory Trick
+
+SAVE
+next = curr.next
+
+REVERSE
+curr.next = prev
+
+MOVE
+prev = curr
+curr = next
+
+Repeat
+
+Finally:
+head = prev
+
+---
+
+Important Rule
+
+Before changing any "next" pointer,
+always save it first.
+
+Save -> Reverse -> Move Prev -> Move Curr
